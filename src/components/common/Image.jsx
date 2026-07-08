@@ -1,3 +1,3 @@
-export const Image = ({ src, alt }) => {
-  return <img src={src} alt={alt} loading="lazy" />;
+export const Image = ({ src, alt, className }) => {
+  return <img className={className} src={src} alt={alt} loading="lazy" />;
 };

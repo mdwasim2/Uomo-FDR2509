@@ -1,10 +1,13 @@
 import React from "react";
+import Banner from "../components/home/Banner";
+import Category from "../components/home/Category";
 
 const HomePage = () => {
   return (
-    <div className="">
-      <div className="container">home page</div>
-    </div>
+    <>
+    <Banner/>
+    <Category/>
+    </>
   );
 };
 

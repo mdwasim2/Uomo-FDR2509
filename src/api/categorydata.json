@@ -1,0 +1,22 @@
+[
+    {
+        "id":1,
+        "image":"./images/category1.png",
+        "name":"WOMEN"
+    },
+    {
+        "id":2,
+        "image":"./images/category2.png",
+        "name":"MEN"
+    },
+    {
+        "id":3,
+        "image":"./images/category3.png",
+        "name":"WOMEN"
+    },
+    {
+        "id":4,
+       "image":"./images/category3.png",
+        "name":"MEN"
+    }
+]
