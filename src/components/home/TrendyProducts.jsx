@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import Title from "../common/Title";
 import treadydata from "../../api/treadydata.json";
 import Product from "../common/Product";
@@ -7,6 +7,7 @@ const TrendyProducts = () => {
   let [activeCategory, setActiveCategory] = useState("all");
   let [products, setProducts] = useState([]);
   let [filterProducts, setFilterProducts] = useState([]);
+  const [showAllProducts, setShowAllProducts] = useState(false);
 
   useEffect(() => {
     axios
@@ -17,7 +18,7 @@ const TrendyProducts = () => {
       .catch((err) => {
         throw new Error("someting went wrong !");
       });
-  });
+  }, []);
 
   const handleTabs = (category) => {
     setActiveCategory(category);
@@ -26,8 +27,11 @@ const TrendyProducts = () => {
     setFilterProducts(filterProduct);
   };
 
+  const handleShowAllProducts = () => {
+    setShowAllProducts(!showAllProducts);
+  };
   return (
-    <section className="mt-23.5">
+    <section className="mt-23.5 mb-25">
       <div className="container">
         <Title name="OUR TRENDY " namebold="PRODUCTS" />
         <ul className="mt-7.5 mb-10 flex justify-center gap-13.5">
@@ -47,7 +51,19 @@ const TrendyProducts = () => {
             ? filterProducts.map((item) => (
                 <Product item={item} key={item.id} />
               ))
-            : products.map((item) => <Product item={item} key={item.id} />)}
+            : showAllProducts
+              ? products.map((item) => <Product item={item} key={item.id} />)
+              : products
+                  .slice(0, 8)
+                  .map((item) => <Product item={item} key={item.id} />)}
+        </div>
+        <div className="text-center">
+          <button
+            onClick={handleShowAllProducts}
+            className="text-primary after:bg-primary relative mt-10.5 cursor-pointer text-sm leading-6 font-medium after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] hover:after:w-[70%]"
+          >
+            {showAllProducts ? "SEE LESS PRODUCT" : "SEE ALL PRODUCT"}
+          </button>
         </div>
       </div>
     </section>
