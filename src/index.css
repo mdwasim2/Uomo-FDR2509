@@ -35,3 +35,29 @@
   margin-left: 289px !important;
   bottom: 58px !important;
 }
+
+@media (min-width:300px) and (max-width:767px) {
+
+  .swiper-pagination {
+  text-align: start !important;
+  margin-left: 20px !important;
+  bottom: 10px !important;
+}
+.swiper-pagination-bullet {
+
+
+  margin-right: 10px !important;
+}
+.swiper-pagination-bullet-active::after {
+  content: "";
+  width: 20px;
+  height: 20px;
+  border: 2px solid #222222;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+}

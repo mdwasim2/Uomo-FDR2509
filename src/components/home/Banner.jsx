@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 const Banner = () => {
   return (
-    <section className="mx-5 ">
+    <section className="mx- lg:mx-5 ">
       <Swiper  pagination={{clickable:true}} modules={[Pagination]}  className="mySwiper">
         {bannerData.map((item) => (
           <SwiperSlide>

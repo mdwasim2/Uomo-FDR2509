@@ -1,12 +1,15 @@
 import { Link } from "react-router";
 import { Image } from "../common/Image";
 import navData from "../../api/navbardata.json";
+import { IoMdClose } from "react-icons/io";
+import { useState } from "react";
 
 const Header = () => {
+  const [menuActive, setMenuActive] = useState(false);
   return (
-    <header className="pt-7.25 pb-7">
+    <header className="lg:pt-7.25 lg:pb-7">
       <nav>
-        <div className="container">
+        <div className="container hidden lg:block">
           <div className="flex">
             <Link to="/">
               <Image src="/images/logo.png" alt="logo" />
@@ -102,6 +105,64 @@ const Header = () => {
             </div>
           </div>
         </div>
+        {/* ==============mobile responsive navbar ============ */}
+        <div className="flex items-center justify-between overflow-hidden p-4 lg:hidden">
+          <button onClick={() => setMenuActive(true)}>
+            <svg
+              width="25"
+              height="18"
+              viewBox="0 0 25 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="25" height="2" fill="#222222" />
+              <rect y="8" width="20" height="2" fill="#222222" />
+              <rect y="16" width="25" height="2" fill="#222222" />
+            </svg>
+          </button>
+
+          <ul
+            className={`absolute top-0 duration-300 ${menuActive ? "left-0" : "-left-full "} z-50 h-screen w-full bg-black pt-10`}
+          >
+            <IoMdClose
+              onClick={() => setMenuActive(false)}
+              size={25}
+              className="absolute top-2 right-4 text-white"
+            />
+
+            {navData?.map((item) => (
+              <li
+                className="mt-2 text-center text-sm leading-6 font-medium text-white"
+                key={item.id}
+              >
+                {item?.title}{" "}
+              </li>
+            ))}
+          </ul>
+
+          <Link to="/">
+            <Image src="/images/logo.png" alt="logo" />
+          </Link>
+
+          <button className="relative">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M17.6562 4.6875H15.2755C14.9652 2.05164 12.7179 0 10 0C7.28215 0 5.0348 2.05164 4.72445 4.6875H2.34375C1.91227 4.6875 1.5625 5.03727 1.5625 5.46875V19.2188C1.5625 19.6502 1.91227 20 2.34375 20H17.6562C18.0877 20 18.4375 19.6502 18.4375 19.2188V5.46875C18.4375 5.03727 18.0877 4.6875 17.6562 4.6875ZM10 1.5625C11.8548 1.5625 13.3992 2.91621 13.6976 4.6875H6.30238C6.60082 2.91621 8.14516 1.5625 10 1.5625ZM16.875 18.4375H3.125V6.25H4.6875V8.59375C4.6875 9.02523 5.03727 9.375 5.46875 9.375C5.90023 9.375 6.25 9.02523 6.25 8.59375V6.25H13.75V8.59375C13.75 9.02523 14.0998 9.375 14.5312 9.375C14.9627 9.375 15.3125 9.02523 15.3125 8.59375V6.25H16.875V18.4375Z"
+                fill="#222222"
+              />
+            </svg>
+            <span className="absolute -right-2 -bottom-3 block size-4 rounded-full bg-[#B9A16B] text-[10px] font-medium text-white">
+              2
+            </span>
+          </button>
+        </div>
+        {/* ==============mobile responsive navbar ============ */}
       </nav>
     </header>
   );
