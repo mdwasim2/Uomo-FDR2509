@@ -4,6 +4,7 @@ import Category from "../components/home/Category";
 import TrendyProducts from "../components/home/TrendyProducts";
 import SpringCollection from "../components/home/SpringCollection";
 import Starting from "../components/home/Starting";
+import LimitedEditon from "../components/home/LimitedEditon";
 
 const HomePage = () => {
   return (
@@ -13,6 +14,7 @@ const HomePage = () => {
       <TrendyProducts />
       <SpringCollection />
       <Starting />
+      <LimitedEditon/>
     </>
   );
 };
