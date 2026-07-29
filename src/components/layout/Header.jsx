@@ -21,7 +21,7 @@ const Header = () => {
                   className="text-primary after:bg-primary relative text-sm leading-6 font-medium after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] hover:after:w-[70%]"
                   key={item.id}
                 >
-                  {item?.title}{" "}
+                  <Link to={item.path}>{item?.title}</Link>
                 </li>
               ))}
             </ul>

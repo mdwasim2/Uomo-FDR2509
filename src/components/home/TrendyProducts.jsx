@@ -31,8 +31,8 @@ const TrendyProducts = () => {
     setShowAllProducts(!showAllProducts);
   };
   return (
-    <section className="mt-23.5 mb-25">
-      <div className="container">
+    <section className="mt-9.25 lg:mt-23.5 mb-12.5 lg:mb-25">
+      <div className="container px-2 ">
         <Title name="OUR TRENDY " namebold="PRODUCTS" />
         <ul className="mt-7.5 mb-10 flex flex-wrap justify-center gap-x-11.5 gap-y-5 lg:gap-13.5">
           {treadydata.map((item) => (
@@ -46,7 +46,7 @@ const TrendyProducts = () => {
             </li>
           ))}
         </ul>
-        {/* <div className="grid grid-cols-4">
+        <div className="grid gap-x-3.5 lg:gap-x-0 grid-cols-2 lg:grid-cols-4">
           {filterProducts.length > 0
             ? filterProducts.map((item) => (
                 <Product item={item} key={item.id} />
@@ -60,11 +60,11 @@ const TrendyProducts = () => {
         <div className="text-center">
           <button
             onClick={handleShowAllProducts}
-            className="text-primary after:bg-primary relative mt-10.5 cursor-pointer text-sm leading-6 font-medium after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] hover:after:w-[70%]"
+            className="text-primary after:bg-primary relative mt-5.5 lg:mt-10.5 cursor-pointer text-sm leading-6 font-medium after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] hover:after:w-[70%]"
           >
             {showAllProducts ? "SEE LESS PRODUCT" : "SEE ALL PRODUCT"}
           </button>
-        </div> */}
+        </div>
       </div>
     </section>
   );

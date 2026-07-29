@@ -22,13 +22,28 @@ const LimitedEditon = () => {
 
   console.log(products);
   return (
-    <section className="mt-22.75">
-      <div className="relative container">
+    <section className="mt-9.25 lg:mt-22.75">
+      <div className="relative container px-2">
         <Title name="LIMITED " namebold="EDITION" />
 
         <div>
           <Swiper
             slidesPerView={4}
+
+            breakpoints={{
+              
+              320: {
+                slidesPerView: 2,
+                spaceBetween: 14,
+                
+              },
+           
+      
+              1024: {
+                slidesPerView: 4,
+        
+              },
+            }}
 
             modules={[Navigation]}
             className="mySwiper"
@@ -45,10 +60,10 @@ const LimitedEditon = () => {
           </Swiper>
 
           <div className="slideBtn">
-            <button className="prev-button absolute top-2/4 -left-6 translate-y-[-50%]">
+            <button className="prev-button z-50 absolute top-2/4 left-2 lg:-left-6 translate-y-[-50%]">
               <FaAngleLeft size={25} className="text-gray" />
             </button>
-            <button className="next-button absolute top-2/4 -right-6 translate-y-[-50%]">
+            <button className="next-button z-50 absolute top-2/4 right-2 lg:-right-6 translate-y-[-50%]">
               <FaAngleRight size={25} className="text-gray" />
             </button>
           </div>
