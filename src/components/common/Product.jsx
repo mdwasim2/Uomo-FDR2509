@@ -3,7 +3,7 @@ import { Image } from "./Image";
 import ProductImage from "../../assets/images/product.png";
 const Product = ({ item }) => {
   return (
-    <div className="group relative max-w-82.5">
+    <div className="group relative w-full">
       <Image src={item.thumbnail} alt="product1" />
       <div className="mt-3.5">
         <div className="flex justify-between">
@@ -30,13 +30,15 @@ const Product = ({ item }) => {
             </svg>
           </button>
         </div>
-        <h3 className="text-primary mt-2.25 text-sm lg:text-base font-normal">
+        <h3 className="text-primary mt-2.25 text-sm font-normal lg:text-base">
           {item.title}
         </h3>
-        <h5 className="text-primary text-sm lg:text-base font-normal">${item.price}</h5>
+        <h5 className="text-primary text-sm font-normal lg:text-base">
+          ${item.price}
+        </h5>
       </div>
       <div className="text-center">
-        <button className="invisible absolute bottom-25 left-2/4 h-12.5 max-w-77.5 translate-x-[-50%] cursor-pointer bg-white text-center text-sm font-medium text-black shadow-lg shadow-gray-200 transition-all ease-in-out group-hover:visible">
+        <button className="invisible absolute bottom-25 left-2/4 h-12.5 w-full max-w-77.5 translate-x-[-50%] cursor-pointer bg-white text-center text-sm font-medium text-black shadow-lg shadow-gray-200 transition-all ease-in-out group-hover:visible">
           ADD TO CART
         </button>
       </div>
