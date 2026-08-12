@@ -1,13 +1,11 @@
-import React from "react";
 import { Image } from "./Image";
-import ProductImage from "../../assets/images/product.png";
-const Product = ({ item }) => {
+const Product = ({ item, view }) => {
   return (
     <div className="group relative w-full">
-      <Image src={item.thumbnail} alt="product1" />
+      <Image className="w-full" src={item.thumbnail} alt="product1" />
       <div className="mt-3.5">
         <div className="flex justify-between">
-          <h4 className="text-gray text-sm font-normal">{item.category}</h4>
+          <h4 style={view ==2 ? {fontSize:"24px"} : {fontSize:"14px"} } className="text-gray text-sm font-normal capitalize">{item.category}</h4>
           <button>
             <svg
               width="16"
@@ -30,7 +28,7 @@ const Product = ({ item }) => {
             </svg>
           </button>
         </div>
-        <h3 className="text-primary mt-2.25 text-sm font-normal lg:text-base">
+        <h3 style={view ==2 ? {fontSize:"24px"} : {fontSize:"14px"} } className={`text-primary mt-2.25 text-sm font-normal lg:text-base`}>
           {item.title}
         </h3>
         <h5 className="text-primary text-sm font-normal lg:text-base">
