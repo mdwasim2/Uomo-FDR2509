@@ -1,5 +1,17 @@
+import { addtocart } from "../../slices/cartSlice";
 import { Image } from "./Image";
+import { useDispatch } from "react-redux";
 const Product = ({ item, view }) => {
+  let dispatch = useDispatch()
+
+  const handleAddtoCart = (pitem)=>{
+    dispatch(addtocart({
+      id:pitem.id,
+      title:pitem.title,
+      price:pitem.price,
+      image : pitem.thumbnail
+    }))
+  }
   return (
     <div className="group relative w-full">
       <Image className="w-full" src={item.thumbnail} alt="product1" />
@@ -36,7 +48,7 @@ const Product = ({ item, view }) => {
         </h5>
       </div>
       <div className="text-center">
-        <button className="invisible absolute bottom-25 left-2/4 h-12.5 w-full max-w-77.5 translate-x-[-50%] cursor-pointer bg-white text-center text-sm font-medium text-black shadow-lg shadow-gray-200 transition-all ease-in-out group-hover:visible">
+        <button onClick={()=>handleAddtoCart(item)} className="invisible absolute bottom-25 left-2/4 h-12.5 w-full max-w-77.5 translate-x-[-50%] cursor-pointer bg-white text-center text-sm font-medium text-black shadow-lg shadow-gray-200 transition-all ease-in-out group-hover:visible">
           ADD TO CART
         </button>
       </div>
