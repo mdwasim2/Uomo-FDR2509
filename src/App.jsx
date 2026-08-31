@@ -5,6 +5,7 @@ import Rootlayout from "./components/layout/Rootlayout";
 import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
 import ShopSingle from "./pages/ShopSingle";
+import CartPage from "./pages/CartPage";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -14,6 +15,7 @@ const App = () => {
         { index: true, Component: HomePage },
         { path: "shop", Component: ShopPage },
         { path: "shop/:id", Component: ShopSingle },
+        { path: "cart", Component: CartPage },
       ],
     },
   ]);

@@ -1,14 +1,20 @@
-import { Link } from "react-router";
+import { Link , useNavigate } from "react-router";
 import { Image } from "../common/Image";
 import navData from "../../api/navbardata.json";
 import { IoMdClose } from "react-icons/io";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
+
 const Header = () => {
   const [menuActive, setMenuActive] = useState(false);
   let cart = useSelector((state) => state.cart.products);
-  console.log(cart);
+  let navigate = useNavigate()
+
+
+  const handleCart = ()=>{
+    navigate("/cart")
+  }
 
   return (
     <header className="lg:pt-7.25 lg:pb-7">
@@ -82,7 +88,7 @@ const Header = () => {
                 </svg>
               </button>
 
-              <button className="relative">
+              <button onClick={handleCart} className="relative">
                 <svg
                   width="20"
                   height="20"
