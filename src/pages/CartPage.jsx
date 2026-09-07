@@ -43,24 +43,8 @@ export default function CartPage() {
                   </h2>
 
                   <ul className="text-slate-600 font-medium mt-8 space-y-4">
-                     <li className="flex flex-wrap gap-4 text-sm">
-                        Discount{" "}
-                        <span className="ml-auto text-slate-900 font-semibold">
-                           $100
-                        </span>
-                     </li>
-                     <li className="flex flex-wrap gap-4 text-sm">
-                        Shipping{" "}
-                        <span className="ml-auto text-slate-900 font-semibold">
-                           $100
-                        </span>
-                     </li>
-                     <li className="flex flex-wrap gap-4 text-sm">
-                        Tax{" "}
-                        <span className="ml-auto text-slate-900 font-semibold">
-                           $100
-                        </span>
-                     </li>
+                
+                    
                      <li className="flex flex-wrap gap-4 text-sm text-slate-900">
                         Total{" "}
                         <span className="ml-auto font-semibold">

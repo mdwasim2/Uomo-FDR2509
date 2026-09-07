@@ -6,6 +6,8 @@ import HomePage from "./pages/HomePage";
 import ShopPage from "./pages/ShopPage";
 import ShopSingle from "./pages/ShopSingle";
 import CartPage from "./pages/CartPage";
+import Signin from "./pages/Signin";
+import SignUp from "./pages/Signup";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -16,6 +18,8 @@ const App = () => {
         { path: "shop", Component: ShopPage },
         { path: "shop/:id", Component: ShopSingle },
         { path: "cart", Component: CartPage },
+        { path: "signin", Component: Signin },
+        { path: "signup", Component: SignUp },
       ],
     },
   ]);

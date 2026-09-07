@@ -36,7 +36,7 @@ const Header = () => {
               ))}
             </ul>
             {/* icons  */}
-            <div className="ml-auto flex gap-8">
+            <div className="ml-auto flex items-center gap-8">
               <button className="cursor-pointer">
                 <svg
                   width="21"
@@ -62,7 +62,7 @@ const Header = () => {
                   </defs>
                 </svg>
               </button>
-              <button className="cursor-pointer">
+              <Link to="/signin"  className="cursor-pointer">
                 <svg
                   width="21"
                   height="20"
@@ -86,7 +86,7 @@ const Header = () => {
                     </clipPath>
                   </defs>
                 </svg>
-              </button>
+              </Link>
 
               <button onClick={handleCart} className="relative">
                 <svg
