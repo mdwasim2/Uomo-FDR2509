@@ -8,6 +8,8 @@ import ShopSingle from "./pages/ShopSingle";
 import CartPage from "./pages/CartPage";
 import Signin from "./pages/Signin";
 import SignUp from "./pages/Signup";
+import ForgotPassword from "./pages/ForgotPassword";
+import Profile from "./pages/Profile";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -20,6 +22,8 @@ const App = () => {
         { path: "cart", Component: CartPage },
         { path: "signin", Component: Signin },
         { path: "signup", Component: SignUp },
+        { path: "forgotpassword", Component: ForgotPassword },
+        { path: "profile", Component: Profile },
       ],
     },
   ]);
