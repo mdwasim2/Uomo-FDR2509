@@ -45,7 +45,7 @@ const MobileNav = () => {
                 </svg>
                 <span className=' text-sm font-medium '>Home</span>
             </Link>
-            <Link to="#" className=' flex flex-col items-center gap-x-2'>
+            <Link to="/cart" className=' flex flex-col items-center gap-x-2'>
 
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_171_682)">
@@ -57,7 +57,7 @@ const MobileNav = () => {
                         </clipPath>
                     </defs>
                 </svg>
-                <span className=' text-sm font-medium '>Home</span>
+                <span className=' text-sm font-medium '>Cart</span>
             </Link>
 
         </footer>
