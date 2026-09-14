@@ -1,6 +1,7 @@
 import { addtocart } from "../../slices/cartSlice";
 import { Image } from "./Image";
 import { useDispatch } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 const Product = ({ item, view }) => {
   let dispatch = useDispatch()
 
@@ -11,9 +12,16 @@ const Product = ({ item, view }) => {
       price:pitem.price,
       image : pitem.thumbnail
     }))
+
+    toast.success("Product add to Cart ",{
+      className:"",
+       duration: 5000,
+      
+    })
   }
   return (
     <div className="group relative w-full">
+          <Toaster position="top-center" reverseOrder={true}/>
       <Image className="w-full" src={item.thumbnail} alt="product1" />
       <div className="mt-3.5">
         <div className="flex justify-between">

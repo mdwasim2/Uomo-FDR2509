@@ -10,6 +10,7 @@ import Signin from "./pages/Signin";
 import SignUp from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
+import Checkout from "./pages/Checkout";
 const App = () => {
   const router = createBrowserRouter([
     {
@@ -24,6 +25,7 @@ const App = () => {
         { path: "signup", Component: SignUp },
         { path: "forgotpassword", Component: ForgotPassword },
         { path: "profile", Component: Profile },
+        { path: "checkout", Component: Checkout },
       ],
     },
   ]);
