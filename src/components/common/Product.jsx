@@ -56,7 +56,7 @@ const Product = ({ item, view }) => {
         </h5>
       </div>
       <div className="text-center">
-        <button onClick={()=>handleAddtoCart(item)} className="invisible absolute bottom-25 left-2/4 h-12.5 w-full max-w-77.5 translate-x-[-50%] cursor-pointer bg-white text-center text-sm font-medium text-black shadow-lg shadow-gray-200 transition-all ease-in-out group-hover:visible">
+        <button onClick={()=>handleAddtoCart(item)} className=" absolute bottom-25 left-2/4 h-12.5 w-full max-w-77.5 translate-x-[-50%] cursor-pointer bg-white text-center text-sm font-medium text-black shadow-lg shadow-gray-200 transition-all ease-in-out group-hover:visible">
           ADD TO CART
         </button>
       </div>
