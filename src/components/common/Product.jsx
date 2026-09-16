@@ -22,10 +22,24 @@ const Product = ({ item, view }) => {
   return (
     <div className="group relative w-full">
           <Toaster position="top-center" reverseOrder={true}/>
-      <Image className="w-full" src={item.thumbnail} alt="product1" />
+      <div className="relative overflow-hidden">
+        <Image className="w-full" src={item.thumbnail} alt={item.title} />
+        <button
+          onClick={() => handleAddtoCart(item)}
+          className="absolute bottom-3 left-1/2 h-11 w-[90%] max-w-77.5 -translate-x-1/2 cursor-pointer bg-white text-center text-xs font-medium text-black shadow-lg shadow-gray-200 transition-all duration-300 ease-in-out sm:text-sm lg:invisible lg:translate-y-2 lg:opacity-0 lg:group-hover:visible lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
+        >
+          ADD TO CART
+        </button>
+      </div>
       <div className="mt-3.5">
         <div className="flex justify-between">
-          <h4 style={view ==2 ? {fontSize:"24px"} : {fontSize:"14px"} } className="text-gray text-sm font-normal capitalize">{item.category}</h4>
+          <h4
+            className={`text-gray font-normal capitalize ${
+              view === 2 ? "text-base sm:text-lg lg:text-xl" : "text-sm"
+            }`}
+          >
+            {item.category}
+          </h4>
           <button>
             <svg
               width="16"
@@ -48,17 +62,16 @@ const Product = ({ item, view }) => {
             </svg>
           </button>
         </div>
-        <h3 style={view ==2 ? {fontSize:"24px"} : {fontSize:"14px"} } className={`text-primary mt-2.25 text-sm font-normal lg:text-base`}>
+        <h3
+          className={`text-primary mt-2.25 font-normal ${
+            view === 2 ? "text-lg sm:text-xl lg:text-2xl" : "text-sm lg:text-base"
+          }`}
+        >
           {item.title}
         </h3>
         <h5 className="text-primary text-sm font-normal lg:text-base">
           ${item.price}
         </h5>
-      </div>
-      <div className="text-center">
-        <button onClick={()=>handleAddtoCart(item)} className=" absolute bottom-25 left-2/4 h-12.5 w-full max-w-77.5 translate-x-[-50%] cursor-pointer bg-white text-center text-sm font-medium text-black shadow-lg shadow-gray-200 transition-all ease-in-out group-hover:visible">
-          ADD TO CART
-        </button>
       </div>
     </div>
   );

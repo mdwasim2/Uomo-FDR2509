@@ -1,17 +1,9 @@
 import { useState, useMemo } from "react";
-import { ChevronUp, ChevronDown, Search } from "lucide-react";
+import { ChevronUp, ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
 
 const CATEGORIES = [
-  "Dresses",
-  "Sweatshirts",
-  "Jackets",
-  "Jeans",
-  "Men",
-  "Shorts",
-  "Swimwear",
-  "T-Shirts & Tops",
-  "Trousers",
-  "Jumpers & Cardigans",
+  "Dresses", "Sweatshirts", "Jackets", "Jeans", "Men",
+  "Shorts", "Swimwear", "T-Shirts & Tops", "Trousers", "Jumpers & Cardigans",
 ];
 
 const COLORS = [
@@ -52,15 +44,9 @@ function SectionHeader({ title, open, onToggle }) {
         {title}
       </span>
       {open ? (
-        <ChevronUp
-          className="h-4 w-4 text-[var(--color-primary)]"
-          strokeWidth={2}
-        />
+        <ChevronUp className="h-4 w-4 text-[var(--color-primary)]" strokeWidth={2} />
       ) : (
-        <ChevronDown
-          className="h-4 w-4 text-[var(--color-primary)]"
-          strokeWidth={2}
-        />
+        <ChevronDown className="h-4 w-4 text-[var(--color-primary)]" strokeWidth={2} />
       )}
     </button>
   );
@@ -84,6 +70,7 @@ export default function ProductSidebar({ onChange }) {
     price: true,
   });
 
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeColor, setActiveColor] = useState("Gray");
   const [activeSize, setActiveSize] = useState(null);
@@ -97,227 +84,230 @@ export default function ProductSidebar({ onChange }) {
 
   const toggleBrand = (name) =>
     setCheckedBrands((prev) =>
-      prev.includes(name) ? prev.filter((b) => b !== name) : [...prev, name],
+      prev.includes(name) ? prev.filter((b) => b !== name) : [...prev, name]
     );
 
   const filteredBrands = useMemo(
     () =>
       BRANDS.filter((b) =>
-        b.name.toLowerCase().includes(brandSearch.trim().toLowerCase()),
+        b.name.toLowerCase().includes(brandSearch.trim().toLowerCase())
       ),
-    [brandSearch],
+    [brandSearch]
   );
 
   const handlePriceChange = (which, value) => {
     const num = Number(value);
-    if (which === "min") {
-      const next = Math.min(num, maxPrice);
-      setMinPrice(next);
-    } else {
-      const next = Math.max(num, minPrice);
-      setMaxPrice(next);
-    }
+    if (which === "min") setMinPrice(Math.min(num, maxPrice));
+    else setMaxPrice(Math.max(num, minPrice));
   };
 
   return (
-    <aside className="w-full max-w-[280px] font-[family-name:var(--font-jost)] text-[var(--color-primary)]">
-      {/* Categories */}
-      <Section
-        title="PRODUCT CATEGORIES"
-        open={open.categories}
-        onToggle={() => toggleSection("categories")}
+    <div className="w-full font-[family-name:var(--font-jost)] lg:w-auto">
+      {/* Mobile trigger */}
+      <button
+        type="button"
+        onClick={() => setMobileOpen(true)}
+        className="mb-4 flex w-full items-center justify-center gap-2 border border-black/15 py-3 text-sm font-medium tracking-wide text-[var(--color-primary)] lg:hidden"
       >
-        <ul className="space-y-3">
-          {CATEGORIES.map((cat) => (
-            <li key={cat}>
-              <button
-                type="button"
-                onClick={() => setActiveCategory(cat)}
-                className={`text-sm transition-colors hover:text-[var(--color-primary)] ${
-                  activeCategory === cat
-                    ? "font-medium text-[var(--color-primary)]"
-                    : "text-[var(--color-gray)]"
-                }`}
-              >
-                {cat}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </Section>
+        <SlidersHorizontal className="h-4 w-4" />
+        FILTERS
+      </button>
 
-      {/* Color */}
-      <Section
-        title="COLOR"
-        open={open.color}
-        onToggle={() => toggleSection("color")}
+      {/* Overlay (mobile only) */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {/* Sidebar panel:
+          - mobile: fixed slide-in drawer, hidden unless mobileOpen
+          - desktop (lg+): static, always visible */}
+      <aside
+        className={`fixed top-0 right-0 z-50 h-full w-[85%] max-w-[320px] overflow-y-auto bg-white px-6 py-6 shadow-xl transition-transform duration-300 ease-in-out
+        ${mobileOpen ? "translate-x-0" : "translate-x-full"}
+        lg:static lg:z-auto lg:h-auto lg:w-[280px] lg:max-w-[280px] lg:translate-x-0 lg:overflow-visible lg:px-0 lg:py-0 lg:shadow-none`}
       >
-        <div className="flex flex-wrap gap-3">
-          {COLORS.map((c) => (
-            <button
-              key={c.name}
-              type="button"
-              aria-label={c.name}
-              onClick={() => setActiveColor(c.name)}
-              className="flex h-7 w-7 items-center justify-center rounded-full"
-              style={{
-                boxShadow:
-                  activeColor === c.name ? `0 0 0 1.5px ${c.hex}` : "none",
-                outline:
-                  activeColor === c.name ? "1px solid transparent" : "none",
-              }}
-            >
-              <span
-                className="h-5 w-5 rounded-full"
-                style={{
-                  backgroundColor: c.hex,
-                  border: activeColor === c.name ? "2px solid white" : "none",
-                  boxShadow:
-                    activeColor === c.name ? `0 0 0 1.5px ${c.hex}` : "none",
-                }}
+        <div className="mb-4 flex items-center justify-between lg:hidden">
+          <span className="text-sm font-semibold text-[var(--color-primary)]">FILTERS</span>
+          <button type="button" onClick={() => setMobileOpen(false)}>
+            <X className="h-5 w-5 text-[var(--color-primary)]" />
+          </button>
+        </div>
+
+        <div className="text-[var(--color-primary)]">
+          {/* Categories */}
+          <Section
+            title="PRODUCT CATEGORIES"
+            open={open.categories}
+            onToggle={() => toggleSection("categories")}
+          >
+            <ul className="space-y-3">
+              {CATEGORIES.map((cat) => (
+                <li key={cat}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={`text-sm transition-colors hover:text-[var(--color-primary)] ${
+                      activeCategory === cat
+                        ? "font-medium text-[var(--color-primary)]"
+                        : "text-[var(--color-gray)]"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </Section>
+
+          {/* Color */}
+          <Section title="COLOR" open={open.color} onToggle={() => toggleSection("color")}>
+            <div className="flex flex-wrap gap-3">
+              {COLORS.map((c) => (
+                <button
+                  key={c.name}
+                  type="button"
+                  aria-label={c.name}
+                  onClick={() => setActiveColor(c.name)}
+                  className="flex h-7 w-7 items-center justify-center rounded-full"
+                  style={{
+                    boxShadow: activeColor === c.name ? `0 0 0 1.5px ${c.hex}` : "none",
+                  }}
+                >
+                  <span
+                    className="h-5 w-5 rounded-full"
+                    style={{
+                      backgroundColor: c.hex,
+                      border: activeColor === c.name ? "2px solid white" : "none",
+                      boxShadow: activeColor === c.name ? `0 0 0 1.5px ${c.hex}` : "none",
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          </Section>
+
+          {/* Sizes */}
+          <Section title="SIZES" open={open.sizes} onToggle={() => toggleSection("sizes")}>
+            <div className="grid grid-cols-3 gap-3 xs:grid-cols-4">
+              {SIZES.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={() => setActiveSize(size)}
+                  className={`flex h-10 items-center justify-center border text-sm transition-colors ${
+                    activeSize === size
+                      ? "border-[var(--color-primary)] text-[var(--color-primary)]"
+                      : "border-black/10 text-[var(--color-primary)] hover:border-[var(--color-primary)]"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </Section>
+
+          {/* Brands */}
+          <Section title="BRANDS" open={open.brands} onToggle={() => toggleSection("brands")}>
+            <div className="relative mb-4">
+              <input
+                type="text"
+                value={brandSearch}
+                onChange={(e) => setBrandSearch(e.target.value)}
+                placeholder="Search"
+                className="w-full border border-black/10 bg-transparent py-2 pr-9 pl-3 text-sm text-[var(--color-primary)] placeholder:text-[var(--color-gray)] focus:border-[var(--color-primary)] focus:outline-none"
               />
-            </button>
-          ))}
-        </div>
-      </Section>
+              <Search className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-[var(--color-gray)]" />
+            </div>
 
-      {/* Sizes */}
-      <Section
-        title="SIZES"
-        open={open.sizes}
-        onToggle={() => toggleSection("sizes")}
-      >
-        <div className="grid grid-cols-4 gap-3">
-          {SIZES.map((size) => (
-            <button
-              key={size}
-              type="button"
-              onClick={() => setActiveSize(size)}
-              className={`flex h-10 items-center justify-center border text-sm transition-colors ${
-                activeSize === size
-                  ? "border-[var(--color-primary)] text-[var(--color-primary)]"
-                  : "border-black/10 text-[var(--color-primary)] hover:border-[var(--color-primary)]"
-              }`}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
-      </Section>
+            <ul className="max-h-56 space-y-3 overflow-y-auto lg:max-h-none lg:overflow-visible">
+              {filteredBrands.map((brand) => (
+                <li key={brand.name} className="flex items-center justify-between">
+                  <label className="flex cursor-pointer items-center gap-3 text-sm text-[var(--color-primary)]">
+                    <input
+                      type="checkbox"
+                      checked={checkedBrands.includes(brand.name)}
+                      onChange={() => toggleBrand(brand.name)}
+                      className="h-4 w-4 rounded-none border border-black/20 accent-[var(--color-primary)]"
+                    />
+                    {brand.name}
+                  </label>
+                  <span className="text-sm text-[var(--color-gray)]">{brand.count}</span>
+                </li>
+              ))}
+              {filteredBrands.length === 0 && (
+                <li className="text-sm text-[var(--color-gray)]">No brands found</li>
+              )}
+            </ul>
+          </Section>
 
-      {/* Brands */}
-      <Section
-        title="BRANDS"
-        open={open.brands}
-        onToggle={() => toggleSection("brands")}
-      >
-        <div className="relative mb-4">
-          <input
-            type="text"
-            value={brandSearch}
-            onChange={(e) => setBrandSearch(e.target.value)}
-            placeholder="Search"
-            className="w-full border border-black/10 bg-transparent py-2 pr-9 pl-3 text-sm text-[var(--color-primary)] placeholder:text-[var(--color-gray)] focus:border-[var(--color-primary)] focus:outline-none"
-          />
-          <Search className="pointer-events-none absolute top-1/2 right-3 h-4 w-4 -translate-y-1/2 text-[var(--color-gray)]" />
-        </div>
-
-        <ul className="space-y-3">
-          {filteredBrands.map((brand) => (
-            <li key={brand.name} className="flex items-center justify-between">
-              <label className="flex cursor-pointer items-center gap-3 text-sm text-[var(--color-primary)]">
-                <input
-                  type="checkbox"
-                  checked={checkedBrands.includes(brand.name)}
-                  onChange={() => toggleBrand(brand.name)}
-                  className="h-4 w-4 rounded-none border border-black/20 accent-[var(--color-primary)]"
+          {/* Price */}
+          <Section title="PRICE" open={open.price} onToggle={() => toggleSection("price")}>
+            <div className="px-1">
+              <div className="relative h-1 w-full rounded-full bg-black/10">
+                <div
+                  className="absolute h-1 rounded-full bg-[var(--color-primary)]"
+                  style={{
+                    left: `${((minPrice - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%`,
+                    right: `${100 - ((maxPrice - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%`,
+                  }}
                 />
-                {brand.name}
-              </label>
-              <span className="text-sm text-[var(--color-gray)]">
-                {brand.count}
-              </span>
-            </li>
-          ))}
-          {filteredBrands.length === 0 && (
-            <li className="text-sm text-[var(--color-gray)]">
-              No brands found
-            </li>
-          )}
-        </ul>
-      </Section>
+                <input
+                  type="range"
+                  min={PRICE_MIN}
+                  max={PRICE_MAX}
+                  value={minPrice}
+                  onChange={(e) => handlePriceChange("min", e.target.value)}
+                  className="range-thumb pointer-events-none absolute inset-0 h-1 w-full appearance-none bg-transparent"
+                />
+                <input
+                  type="range"
+                  min={PRICE_MIN}
+                  max={PRICE_MAX}
+                  value={maxPrice}
+                  onChange={(e) => handlePriceChange("max", e.target.value)}
+                  className="range-thumb pointer-events-none absolute inset-0 h-1 w-full appearance-none bg-transparent"
+                />
+              </div>
 
-      {/* Price */}
-      <Section
-        title="PRICE"
-        open={open.price}
-        onToggle={() => toggleSection("price")}
-      >
-        <div className="px-1">
-          <div className="relative h-1 w-full rounded-full bg-black/10">
-            <div
-              className="absolute h-1 rounded-full bg-[var(--color-primary)]"
-              style={{
-                left: `${((minPrice - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%`,
-                right: `${100 - ((maxPrice - PRICE_MIN) / (PRICE_MAX - PRICE_MIN)) * 100}%`,
-              }}
-            />
-            <input
-              type="range"
-              min={PRICE_MIN}
-              max={PRICE_MAX}
-              value={minPrice}
-              onChange={(e) => handlePriceChange("min", e.target.value)}
-              className="range-thumb pointer-events-none absolute inset-0 h-1 w-full appearance-none bg-transparent"
-            />
-            <input
-              type="range"
-              min={PRICE_MIN}
-              max={PRICE_MAX}
-              value={maxPrice}
-              onChange={(e) => handlePriceChange("max", e.target.value)}
-              className="range-thumb pointer-events-none absolute inset-0 h-1 w-full appearance-none bg-transparent"
-            />
-          </div>
+              <div className="mt-5 flex flex-wrap items-center justify-between gap-2 text-sm text-[var(--color-gray)]">
+                <span>Min Price: ${minPrice}</span>
+                <span>Max Price: ${maxPrice}</span>
+              </div>
+            </div>
 
-          <div className="mt-5 flex items-center justify-between text-sm text-[var(--color-gray)]">
-            <span>Min Price: ${minPrice}</span>
-            <span>Max Price: ${maxPrice}</span>
-          </div>
+            <style>{`
+              .range-thumb::-webkit-slider-thumb {
+                pointer-events: auto;
+                -webkit-appearance: none;
+                appearance: none;
+                height: 14px;
+                width: 14px;
+                border-radius: 9999px;
+                background: var(--color-primary);
+                border: 2px solid white;
+                box-shadow: 0 0 0 1px var(--color-primary);
+                cursor: pointer;
+              }
+              .range-thumb::-moz-range-thumb {
+                pointer-events: auto;
+                height: 14px;
+                width: 14px;
+                border-radius: 9999px;
+                background: var(--color-primary);
+                border: 2px solid white;
+                box-shadow: 0 0 0 1px var(--color-primary);
+                cursor: pointer;
+              }
+              .range-thumb::-webkit-slider-runnable-track {
+                background: transparent;
+              }
+            `}</style>
+          </Section>
         </div>
-
-        <style>{`
-          .range-thumb {
-            pointer-events: none;
-          }
-          .range-thumb::-webkit-slider-thumb {
-            pointer-events: auto;
-            -webkit-appearance: none;
-            appearance: none;
-            height: 14px;
-            width: 14px;
-            border-radius: 9999px;
-            background: var(--color-primary);
-            border: 2px solid white;
-            box-shadow: 0 0 0 1px var(--color-primary);
-            cursor: pointer;
-            margin-top: 0;
-          }
-          .range-thumb::-moz-range-thumb {
-            pointer-events: auto;
-            height: 14px;
-            width: 14px;
-            border-radius: 9999px;
-            background: var(--color-primary);
-            border: 2px solid white;
-            box-shadow: 0 0 0 1px var(--color-primary);
-            cursor: pointer;
-          }
-          .range-thumb::-webkit-slider-runnable-track {
-            background: transparent;
-          }
-        `}</style>
-      </Section>
-    </aside>
+      </aside>
+    </div>
   );
 }

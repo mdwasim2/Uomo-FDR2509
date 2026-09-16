@@ -200,7 +200,9 @@ const Header = () => {
                 className="mt-2 text-center text-sm leading-6 font-medium text-white"
                 key={item.id}
               >
+                <Link to={item.path} onClick={() => setMenuActive(false)}>
                 {item?.title}{" "}
+                </Link>
               </li>
             ))}
           </ul>
@@ -209,7 +211,7 @@ const Header = () => {
             <Image src="/images/logo.png" alt="logo" />
           </Link>
 
-          <button className="relative">
+          <button onClick={handleCart} className="relative">
             <svg
               width="20"
               height="20"
@@ -223,7 +225,7 @@ const Header = () => {
               />
             </svg>
             <span className="absolute -right-2 -bottom-3 block size-4 rounded-full bg-[#B9A16B] text-[10px] font-medium text-white">
-              2
+              {cart.length}
             </span>
           </button>
         </div>
