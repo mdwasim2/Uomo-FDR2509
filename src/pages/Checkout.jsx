@@ -3,17 +3,21 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 import { ref, push, set } from "firebase/database";
 import { db } from "../../firebase.config";
 import { auth } from "../../firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
 import { clearcart } from "../slices/cartSlice";
 
+const DHAKA_DELIVERY_CHARGE = 60;
+const OUTSIDE_DHAKA_DELIVERY_CHARGE = 120;
 
 const Checkout = () => {
     const [user, setUser]=useState(null)
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.products || []);
+  const [divisions, setDivisions] = useState([]);
 
      useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -23,17 +27,27 @@ const Checkout = () => {
       return () => unsubscribe();
     }, []);
 
-  
+  useEffect(() => {
+    axios
+      .get("https://bdapis.pro.bd/geo/v2.0/divisions")
+      .then((res) => {
+        setDivisions(res.data?.data || []);
+      })
+      .catch(() => {
+        setDivisions([]);
+      });
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     address: "",
+    division: "",
   });
 
   const [loading, setLoading] = useState(false);
 
-  const totalPrice = useMemo(() => {
+  const subtotal = useMemo(() => {
     return cartItems.reduce((total, item) => {
       return (
         total +
@@ -41,6 +55,15 @@ const Checkout = () => {
       );
     }, 0);
   }, [cartItems]);
+
+  const deliveryCharge = useMemo(() => {
+    if (!formData.division) return 0;
+    return formData.division === "Dhaka"
+      ? DHAKA_DELIVERY_CHARGE
+      : OUTSIDE_DHAKA_DELIVERY_CHARGE;
+  }, [formData.division]);
+
+  const totalPrice = subtotal + deliveryCharge;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,6 +87,12 @@ const Checkout = () => {
       return;
     }
 
+    // Validate delivery division
+    if (!formData.division) {
+      toast.error("Please select your delivery division");
+      return;
+    }
+
     // Validate cart
     if (cartItems.length === 0) {
       toast.error("Your cart is empty");
@@ -82,6 +111,7 @@ const Checkout = () => {
           name: formData.name.trim(),
           phone: formData.phone.trim(),
           address: formData.address.trim(),
+          division: formData.division,
           userid: user?.uid,
         },
 
@@ -95,8 +125,8 @@ const Checkout = () => {
 
         paymentMethod: "Cash on Delivery",
 
-        subtotal: Number(totalPrice.toFixed(2)),
-        deliveryCharge: 0,
+        subtotal: Number(subtotal.toFixed(2)),
+        deliveryCharge,
         total: Number(totalPrice.toFixed(2)),
 
         status: "pending",
@@ -122,6 +152,7 @@ const Checkout = () => {
         name: "",
         phone: "",
         address: "",
+        division: "",
       });
     } catch (error) {
       console.error("Firebase order error:", error);
@@ -188,7 +219,7 @@ const Checkout = () => {
                 </div>
 
                 {/* Address */}
-                <div className="mb-7">
+                <div className="mb-5">
                   <label className="mb-2 block text-sm text-primary">
                     Delivery Address
                   </label>
@@ -201,6 +232,32 @@ const Checkout = () => {
                     rows="5"
                     className="w-full resize-none border border-gray-300 px-4 py-3 text-sm text-primary outline-none transition focus:border-black"
                   />
+                </div>
+
+                {/* Division */}
+                <div className="mb-7">
+                  <label className="mb-2 block text-sm text-primary">
+                    Division
+                  </label>
+
+                  <select
+                    name="division"
+                    value={formData.division}
+                    onChange={handleChange}
+                    className="h-12 w-full border border-gray-300 bg-white px-4 text-sm text-primary outline-none transition focus:border-black"
+                  >
+                    <option value="">Select your division</option>
+                    {divisions.map((division) => (
+                      <option key={division.id} value={division.name}>
+                        {division.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  <p className="mt-2 text-xs text-gray">
+                    Delivery charge: ${DHAKA_DELIVERY_CHARGE} inside Dhaka, $
+                    {OUTSIDE_DHAKA_DELIVERY_CHARGE} outside Dhaka.
+                  </p>
                 </div>
 
                 {/* Payment */}
@@ -290,12 +347,14 @@ const Checkout = () => {
 
               <div className="flex justify-between text-sm text-gray">
                 <span>Subtotal</span>
-                <span>${totalPrice.toFixed(2)}</span>
+                <span>${subtotal.toFixed(2)}</span>
               </div>
 
               <div className="mt-3 flex justify-between text-sm text-gray">
                 <span>Delivery</span>
-                <span>Free</span>
+                <span>
+                  {formData.division ? `$${deliveryCharge.toFixed(2)}` : "Select division"}
+                </span>
               </div>
 
               <div className="my-5 border-t border-gray-200 pt-5">
