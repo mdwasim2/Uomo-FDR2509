@@ -42,6 +42,7 @@ export default function SignIn() {
 
         const errorCode = error.code;
         console.log(errorCode)
+        toast.error(errorCode || "Google login failed");
 
       });
   }
