@@ -30,7 +30,10 @@ const Category = () => {
                 {item.id == 4 && (
                   <p>Surprise someone with the gift they really want.</p>
                 )}
-                <Link className="text-primary after:content-[] after:bg-primary relative text-sm leading-6 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-12.5">
+                <Link
+                  to="/shop"
+                  className="text-primary after:content-[] after:bg-primary relative text-sm leading-6 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-12.5"
+                >
                   {item.id == 4 ? "DISCOVER MORE" : "SHOP NOW "}
                 </Link>
               </div>

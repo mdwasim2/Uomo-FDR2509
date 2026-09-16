@@ -2,6 +2,7 @@ import { addtocart } from "../../slices/cartSlice";
 import { Image } from "./Image";
 import { useDispatch } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router";
 const Product = ({ item, view }) => {
   let dispatch = useDispatch()
 
@@ -23,7 +24,9 @@ const Product = ({ item, view }) => {
     <div className="group relative w-full">
           <Toaster position="top-center" reverseOrder={true}/>
       <div className="relative overflow-hidden">
-        <Image className="w-full" src={item.thumbnail} alt={item.title} />
+        <Link to={`/shop/${item.id}`}>
+          <Image className="w-full" src={item.thumbnail} alt={item.title} />
+        </Link>
         <button
           onClick={() => handleAddtoCart(item)}
           className="absolute bottom-3 left-1/2 h-11 w-[90%] max-w-77.5 -translate-x-1/2 cursor-pointer bg-white text-center text-xs font-medium text-black shadow-lg shadow-gray-200 transition-all duration-300 ease-in-out sm:text-sm lg:invisible lg:translate-y-2 lg:opacity-0 lg:group-hover:visible lg:group-hover:translate-y-0 lg:group-hover:opacity-100"
@@ -62,13 +65,15 @@ const Product = ({ item, view }) => {
             </svg>
           </button>
         </div>
-        <h3
-          className={`text-primary mt-2.25 font-normal ${
-            view === 2 ? "text-lg sm:text-xl lg:text-2xl" : "text-sm lg:text-base"
-          }`}
-        >
-          {item.title}
-        </h3>
+        <Link to={`/shop/${item.id}`}>
+          <h3
+            className={`text-primary mt-2.25 font-normal hover:underline ${
+              view === 2 ? "text-lg sm:text-xl lg:text-2xl" : "text-sm lg:text-base"
+            }`}
+          >
+            {item.title}
+          </h3>
+        </Link>
         <h5 className="text-primary text-sm font-normal lg:text-base">
           ${item.price}
         </h5>

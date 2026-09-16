@@ -2,6 +2,7 @@ import React from "react";
 import SpringImage from "../../assets/images/springcollection.png";
 import { Image } from "../common/Image";
 import Countdown from "react-countdown";
+import { Link } from "react-router";
 
 const SpringCollection = () => {
   const renderer = ({ days, hours, minutes, seconds }) => {
@@ -48,9 +49,12 @@ const SpringCollection = () => {
             <h2 className="text-primary text-[30px] w-44 lg:w-auto lg:text-[70px] font-normal uppercase">
               <span className="font-bold">Spring</span> Collection
             </h2>
-            <button className="text-primary after:bg-primary 5 relative cursor-pointer text-sm leading-6 font-medium after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] hover:after:w-[70%]">
+            <Link
+              to="/shop"
+              className="text-primary after:bg-primary 5 relative cursor-pointer text-sm leading-6 font-medium after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] hover:after:w-[70%]"
+            >
               Shop Now
-            </button>
+            </Link>
             <Countdown
               date={"2026-12-08T14:22:56.397+00:00"}
               renderer={renderer}

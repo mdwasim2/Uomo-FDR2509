@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 import { Image } from "../common/Image";
 import StartingImage from "../../assets/images/startingimage.png";
 
@@ -21,9 +22,12 @@ const Starting = () => {
                 <h2 className="text-primary text-[22px] lg:text-[26px] font-medium group-hover:text-white">
                   Men’s Sportswear
                 </h2>
-                <button className="text-primary after:bg-primary 5 relative cursor-pointer text-sm leading-6 font-medium group-hover:text-white after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] group-hover:after:bg-white hover:after:w-[70%]">
+                <Link
+                  to="/shop"
+                  className="text-primary after:bg-primary 5 relative cursor-pointer text-sm leading-6 font-medium group-hover:text-white after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] group-hover:after:bg-white hover:after:w-[70%]"
+                >
                   Shop Now
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -41,9 +45,12 @@ const Starting = () => {
                 <h2 className="text-primary text-[26px] font-medium group-hover:text-white">
                   Men’s Sportswear
                 </h2>
-                <button className="text-primary after:bg-primary 5 relative cursor-pointer text-sm leading-6 font-medium group-hover:text-white after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] hover:after:w-[70%]">
+                <Link
+                  to="/shop"
+                  className="text-primary after:bg-primary 5 relative cursor-pointer text-sm leading-6 font-medium group-hover:text-white after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:duration-500 after:content-[''] hover:after:w-[70%]"
+                >
                   Shop Now
-                </button>
+                </Link>
               </div>
             </div>
           </div>

@@ -1,16 +1,18 @@
 
 
 import React, { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 import { ref, push, set } from "firebase/database";
 import { db } from "../../firebase.config";
 import { auth } from "../../firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
+import { clearcart } from "../slices/cartSlice";
 
 
 const Checkout = () => {
     const [user, setUser]=useState(null)
+  const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.products || []);
 
      useEffect(() => {
@@ -111,6 +113,9 @@ const Checkout = () => {
       });
 
       toast.success("Order placed successfully!");
+
+      // Empty the cart now that the order has been placed
+      dispatch(clearcart());
 
       // Reset form
       setFormData({
