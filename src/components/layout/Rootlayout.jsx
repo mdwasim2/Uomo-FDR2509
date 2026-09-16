@@ -7,7 +7,9 @@ const Rootlayout = () => {
   return (
     <main>
       <Header />
-      <Outlet />
+      <div className="pb-20 lg:pb-0">
+        <Outlet />
+      </div>
       <MobileNav/>
     </main>
   );
