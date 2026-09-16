@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { ref, push, set } from "firebase/database";
@@ -16,6 +17,7 @@ const OUTSIDE_DHAKA_DELIVERY_CHARGE = 120;
 const Checkout = () => {
     const [user, setUser]=useState(null)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.products || []);
   const [divisions, setDivisions] = useState([]);
 
@@ -154,6 +156,8 @@ const Checkout = () => {
         address: "",
         division: "",
       });
+
+      navigate("/profile");
     } catch (error) {
       console.error("Firebase order error:", error);
       toast.error("Failed to place order. Please try again.");

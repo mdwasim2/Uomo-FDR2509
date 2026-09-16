@@ -51,6 +51,11 @@ const ShopAllProducts = () => {
     setCurrentPage(1);
   };
 
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (loading) {
     return (
       <div className="grid w-full grid-cols-1 content-start gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7.5">
@@ -130,7 +135,7 @@ const ShopAllProducts = () => {
         <ResponsivePagination
           current={currentPage}
           total={totalPages}
-          onPageChange={setCurrentPage}
+          onPageChange={handlePageChange}
           containerClassName="flex justify-center gap-1 flex-wrap"
           pageItemClassName="inline-flex items-center border border-red-500 text-sm"
           activeItemClassName="border-blue-800 bg-teal-500 text-white shadow-sm"
